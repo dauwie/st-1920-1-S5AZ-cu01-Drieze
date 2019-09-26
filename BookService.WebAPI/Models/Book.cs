@@ -13,5 +13,9 @@ namespace BookService.WebAPI.Models
         public Author Author { get; set; }
         public Publisher Publisher { get; set; }
         public string FileName { get; set; }
+
+        public decimal Price { get; set; }
+
+        public string Year { get; set; }
     }
 }

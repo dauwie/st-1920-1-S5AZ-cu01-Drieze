@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookService.WebAPI.Migrations
 {
     [DbContext(typeof(BookServiceContext))]
-    [Migration("20190919182919_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190926172226_InitalCreate")]
+    partial class InitalCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,9 +75,13 @@ namespace BookService.WebAPI.Migrations
 
                     b.Property<int>("NumberOfPages");
 
+                    b.Property<decimal>("Price");
+
                     b.Property<int?>("PublisherId");
 
                     b.Property<string>("Title");
+
+                    b.Property<string>("Year");
 
                     b.HasKey("Id");
 
@@ -95,8 +99,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book1.jpg",
                             ISBN = "123456789",
                             NumberOfPages = 420,
+                            Price = 123.23m,
                             PublisherId = 1,
-                            Title = "Learning C#"
+                            Title = "Learning C#",
+                            Year = "2012"
                         },
                         new
                         {
@@ -105,8 +111,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book2.jpg",
                             ISBN = "45689132",
                             NumberOfPages = 360,
+                            Price = 123.23m,
                             PublisherId = 1,
-                            Title = "Mastering Linq"
+                            Title = "Mastering Linq",
+                            Year = "2012"
                         },
                         new
                         {
@@ -115,8 +123,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book3.jpg",
                             ISBN = "15856135",
                             NumberOfPages = 360,
+                            Price = 123.23m,
                             PublisherId = 1,
-                            Title = "Mastering Xamarin"
+                            Title = "Mastering Xamarin",
+                            Year = "2012"
                         },
                         new
                         {
@@ -125,8 +135,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book1.jpg",
                             ISBN = "56789564",
                             NumberOfPages = 360,
+                            Price = 123.23m,
                             PublisherId = 1,
-                            Title = "Exploring ASP.Net Core 2.0"
+                            Title = "Exploring ASP.Net Core 2.0",
+                            Year = "2012"
                         },
                         new
                         {
@@ -135,8 +147,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book2.jpg",
                             ISBN = "234546684",
                             NumberOfPages = 420,
+                            Price = 123.23m,
                             PublisherId = 1,
-                            Title = "Unity Game Development"
+                            Title = "Unity Game Development",
+                            Year = "2012"
                         },
                         new
                         {
@@ -145,8 +159,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book3.jpg",
                             ISBN = "789456258",
                             NumberOfPages = 40,
+                            Price = 123.23m,
                             PublisherId = 2,
-                            Title = "Cooking is fun"
+                            Title = "Cooking is fun",
+                            Year = "2012"
                         },
                         new
                         {
@@ -155,8 +171,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book3.jpg",
                             ISBN = "94521546",
                             NumberOfPages = 53,
+                            Price = 123.23m,
                             PublisherId = 2,
-                            Title = "Secret recipes"
+                            Title = "Secret recipes",
+                            Year = "2012"
                         });
                 });
 
