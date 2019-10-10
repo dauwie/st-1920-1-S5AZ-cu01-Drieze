@@ -44,7 +44,7 @@ namespace BookService.WebAPI.Migrations
                         {
                             Id = 1,
                             BirthDate = new DateTime(1980, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2019, 10, 3, 18, 32, 24, 658, DateTimeKind.Local).AddTicks(2815),
+                            Created = new DateTime(2019, 10, 10, 16, 14, 45, 790, DateTimeKind.Local).AddTicks(8775),
                             FirstName = "James",
                             LastName = "Sharp"
                         },
@@ -52,7 +52,7 @@ namespace BookService.WebAPI.Migrations
                         {
                             Id = 2,
                             BirthDate = new DateTime(1992, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2019, 10, 3, 18, 32, 24, 658, DateTimeKind.Local).AddTicks(2901),
+                            Created = new DateTime(2019, 10, 10, 16, 14, 45, 790, DateTimeKind.Local).AddTicks(8906),
                             FirstName = "Sophie",
                             LastName = "Netty"
                         },
@@ -60,7 +60,7 @@ namespace BookService.WebAPI.Migrations
                         {
                             Id = 3,
                             BirthDate = new DateTime(1996, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2019, 10, 3, 18, 32, 24, 658, DateTimeKind.Local).AddTicks(2949),
+                            Created = new DateTime(2019, 10, 10, 16, 14, 45, 790, DateTimeKind.Local).AddTicks(9007),
                             FirstName = "Elisa",
                             LastName = "Yammy"
                         });
@@ -72,7 +72,7 @@ namespace BookService.WebAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AuthorId");
+                    b.Property<int>("AuthorId");
 
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAddOrUpdate()
@@ -86,7 +86,7 @@ namespace BookService.WebAPI.Migrations
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int?>("PublisherId");
+                    b.Property<int>("PublisherId");
 
                     b.Property<string>("Title");
 
@@ -210,14 +210,14 @@ namespace BookService.WebAPI.Migrations
                         {
                             Id = 1,
                             Country = "UK",
-                            Created = new DateTime(2019, 10, 3, 18, 32, 24, 658, DateTimeKind.Local).AddTicks(6587),
+                            Created = new DateTime(2019, 10, 10, 16, 14, 45, 791, DateTimeKind.Local).AddTicks(3033),
                             Name = "IT-publishers"
                         },
                         new
                         {
                             Id = 2,
                             Country = "Sweden",
-                            Created = new DateTime(2019, 10, 3, 18, 32, 24, 658, DateTimeKind.Local).AddTicks(6639),
+                            Created = new DateTime(2019, 10, 10, 16, 14, 45, 791, DateTimeKind.Local).AddTicks(3088),
                             Name = "FoodBooks"
                         });
                 });
@@ -226,11 +226,13 @@ namespace BookService.WebAPI.Migrations
                 {
                     b.HasOne("BookService.WebAPI.Models.Author", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BookService.WebAPI.Models.Publisher", "Publisher")
                         .WithMany()
-                        .HasForeignKey("PublisherId");
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

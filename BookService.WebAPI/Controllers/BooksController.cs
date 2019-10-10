@@ -1,48 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
+using BookService.WebAPI.Models;
 using BookService.WebAPI.Repositories;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookService.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BooksController : ControllerBase
+    public class BooksController : ControllerCrudBase<Book, BookRepository>
     {
-        BookRepository repository; IHostingEnvironment _hostingEnvironment;
+        IHostingEnvironment _hostingEnvironment;
 
-        public BooksController(BookRepository bookRepository, IHostingEnvironment hostingEnvironment)
+        public BooksController(BookRepository bookRepository, IHostingEnvironment hostingEnvironment):base(bookRepository)
         {
-            repository = bookRepository;
             _hostingEnvironment = hostingEnvironment;
         }
 
         // GET: api/Books 
         [HttpGet]
-        public IActionResult GetBooks()
+        public override async Task<IActionResult> Get()
         {
-            return Ok(repository.ListAll());
+            return Ok(await repository.GetAllInclusive());
         }
 
         // GET: api/Books/Basic 
         [HttpGet]
         [Route("Basic")]
-        public IActionResult GetBooksBasic()
+        public async Task<IActionResult> GetBooksBasic()
         {
-            return Ok(repository.ListBasic());
+            return Ok(await repository.ListBasic());
         }
 
 
         [HttpGet]
         [Route("{id}")]
-        public IActionResult GetBookDetail(int id)
+        public async Task<IActionResult> GetBookDetail(int id)
         {
-            return Ok(repository.GetById(id));
+            return Ok(await repository.GetById(id));
         }
 
         [HttpGet]

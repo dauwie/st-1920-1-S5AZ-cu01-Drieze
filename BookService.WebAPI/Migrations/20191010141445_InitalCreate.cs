@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookService.WebAPI.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitalCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,8 +49,8 @@ namespace BookService.WebAPI.Migrations
                     Title = table.Column<string>(nullable: true),
                     ISBN = table.Column<string>(nullable: true),
                     NumberOfPages = table.Column<int>(nullable: false),
-                    AuthorId = table.Column<int>(nullable: true),
-                    PublisherId = table.Column<int>(nullable: true),
+                    AuthorId = table.Column<int>(nullable: false),
+                    PublisherId = table.Column<int>(nullable: false),
                     FileName = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     Year = table.Column<string>(nullable: true)
@@ -63,13 +63,13 @@ namespace BookService.WebAPI.Migrations
                         column: x => x.AuthorId,
                         principalTable: "Author",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Book_Publisher_PublisherId",
                         column: x => x.PublisherId,
                         principalTable: "Publisher",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
