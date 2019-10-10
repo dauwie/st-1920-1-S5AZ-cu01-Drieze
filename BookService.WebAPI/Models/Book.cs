@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookService.WebAPI.Models
 {
@@ -18,5 +19,6 @@ namespace BookService.WebAPI.Models
         public decimal Price { get; set; }
 
         public string Year { get; set; }
+        public ICollection<Rating> Ratings { get; set; }
     }
 }

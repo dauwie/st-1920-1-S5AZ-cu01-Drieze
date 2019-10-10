@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookService.WebAPI.Migrations
 {
     [DbContext(typeof(BookServiceContext))]
-    [Migration("20191010141445_InitalCreate")]
+    [Migration("20191010153243_InitalCreate")]
     partial class InitalCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,7 +46,7 @@ namespace BookService.WebAPI.Migrations
                         {
                             Id = 1,
                             BirthDate = new DateTime(1980, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2019, 10, 10, 16, 14, 45, 789, DateTimeKind.Local).AddTicks(4867),
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 946, DateTimeKind.Local).AddTicks(7346),
                             FirstName = "James",
                             LastName = "Sharp"
                         },
@@ -54,7 +54,7 @@ namespace BookService.WebAPI.Migrations
                         {
                             Id = 2,
                             BirthDate = new DateTime(1992, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2019, 10, 10, 16, 14, 45, 789, DateTimeKind.Local).AddTicks(4965),
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 946, DateTimeKind.Local).AddTicks(7446),
                             FirstName = "Sophie",
                             LastName = "Netty"
                         },
@@ -62,7 +62,7 @@ namespace BookService.WebAPI.Migrations
                         {
                             Id = 3,
                             BirthDate = new DateTime(1996, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2019, 10, 10, 16, 14, 45, 789, DateTimeKind.Local).AddTicks(5097),
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 946, DateTimeKind.Local).AddTicks(7496),
                             FirstName = "Elisa",
                             LastName = "Yammy"
                         });
@@ -110,10 +110,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book1.jpg",
                             ISBN = "123456789",
                             NumberOfPages = 420,
-                            Price = 123.23m,
+                            Price = 24.99m,
                             PublisherId = 1,
                             Title = "Learning C#",
-                            Year = "2012"
+                            Year = "2019"
                         },
                         new
                         {
@@ -122,10 +122,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book2.jpg",
                             ISBN = "45689132",
                             NumberOfPages = 360,
-                            Price = 123.23m,
+                            Price = 20.99m,
                             PublisherId = 1,
                             Title = "Mastering Linq",
-                            Year = "2012"
+                            Year = "2017"
                         },
                         new
                         {
@@ -134,10 +134,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book3.jpg",
                             ISBN = "15856135",
                             NumberOfPages = 360,
-                            Price = 123.23m,
+                            Price = 24.00m,
                             PublisherId = 1,
                             Title = "Mastering Xamarin",
-                            Year = "2012"
+                            Year = "2019"
                         },
                         new
                         {
@@ -146,10 +146,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book1.jpg",
                             ISBN = "56789564",
                             NumberOfPages = 360,
-                            Price = 123.23m,
+                            Price = 13.99m,
                             PublisherId = 1,
                             Title = "Exploring ASP.Net Core 2.0",
-                            Year = "2012"
+                            Year = "2013"
                         },
                         new
                         {
@@ -158,10 +158,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book2.jpg",
                             ISBN = "234546684",
                             NumberOfPages = 420,
-                            Price = 123.23m,
+                            Price = 34.99m,
                             PublisherId = 1,
                             Title = "Unity Game Development",
-                            Year = "2012"
+                            Year = "2010"
                         },
                         new
                         {
@@ -170,7 +170,7 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book3.jpg",
                             ISBN = "789456258",
                             NumberOfPages = 40,
-                            Price = 123.23m,
+                            Price = 22.99m,
                             PublisherId = 2,
                             Title = "Cooking is fun",
                             Year = "2012"
@@ -182,10 +182,10 @@ namespace BookService.WebAPI.Migrations
                             FileName = "book3.jpg",
                             ISBN = "94521546",
                             NumberOfPages = 53,
-                            Price = 123.23m,
+                            Price = 27.99m,
                             PublisherId = 2,
                             Title = "Secret recipes",
-                            Year = "2012"
+                            Year = "2017"
                         });
                 });
 
@@ -212,15 +212,128 @@ namespace BookService.WebAPI.Migrations
                         {
                             Id = 1,
                             Country = "UK",
-                            Created = new DateTime(2019, 10, 10, 16, 14, 45, 790, DateTimeKind.Local).AddTicks(2887),
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(5294),
                             Name = "IT-publishers"
                         },
                         new
                         {
                             Id = 2,
                             Country = "Sweden",
-                            Created = new DateTime(2019, 10, 10, 16, 14, 45, 790, DateTimeKind.Local).AddTicks(2985),
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(5350),
                             Name = "FoodBooks"
+                        });
+                });
+
+            modelBuilder.Entity("BookService.WebAPI.Models.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookId");
+
+                    b.Property<DateTime?>("Created");
+
+                    b.Property<int>("ReaderId");
+
+                    b.Property<int>("Score");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("ReaderId");
+
+                    b.ToTable("Rating");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BookId = 1,
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(6414),
+                            ReaderId = 1,
+                            Score = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BookId = 2,
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(6479),
+                            ReaderId = 1,
+                            Score = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BookId = 3,
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(6534),
+                            ReaderId = 2,
+                            Score = 5
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BookId = 1,
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(6590),
+                            ReaderId = 2,
+                            Score = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BookId = 2,
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(6678),
+                            ReaderId = 3,
+                            Score = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BookId = 3,
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(6731),
+                            ReaderId = 3,
+                            Score = 3
+                        });
+                });
+
+            modelBuilder.Entity("BookService.WebAPI.Models.Reader", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("Created");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reader");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(7923),
+                            FirstName = "Joe",
+                            LastName = "Pageturner"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(7978),
+                            FirstName = "Linda",
+                            LastName = "Bookslaughter"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Created = new DateTime(2019, 10, 10, 17, 32, 43, 947, DateTimeKind.Local).AddTicks(8024),
+                            FirstName = "Wendy",
+                            LastName = "Allreader"
                         });
                 });
 
@@ -234,6 +347,19 @@ namespace BookService.WebAPI.Migrations
                     b.HasOne("BookService.WebAPI.Models.Publisher", "Publisher")
                         .WithMany()
                         .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BookService.WebAPI.Models.Rating", b =>
+                {
+                    b.HasOne("BookService.WebAPI.Models.Book", "Book")
+                        .WithMany("Ratings")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BookService.WebAPI.Models.Reader", "Reader")
+                        .WithMany("Ratings")
+                        .HasForeignKey("ReaderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

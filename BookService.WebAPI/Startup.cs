@@ -34,6 +34,8 @@ namespace BookService.WebAPI
             services.AddScoped<BookRepository>();
             services.AddScoped<AuthorRepository>();
             services.AddScoped<PublisherRepository>();
+            services.AddScoped<ReaderRepository>();
+            services.AddScoped<RatingRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

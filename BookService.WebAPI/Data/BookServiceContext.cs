@@ -1,5 +1,4 @@
-﻿
-using BookService.WebAPI.Models;
+﻿using BookService.WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -7,28 +6,51 @@ namespace BookService.WebAPI.Data
 {
     public class BookServiceContext : DbContext
     {
-        public BookServiceContext(DbContextOptions<BookServiceContext> options) : base(options) { }
+        public BookServiceContext(DbContextOptions<BookServiceContext> options)
+             : base(options)
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Singularize table names 
+            modelBuilder.Entity<Reader>().ToTable("Reader")
+                .HasData(
+                    new Reader(1, "Joe", "Pageturner"),
+                    new Reader(2, "Linda", "Bookslaughter"),
+                    new Reader(3, "Wendy", "Allreader")
+                );
+
+            modelBuilder.Entity<Rating>().ToTable("Rating")
+                .HasData(
+                new Rating(1, 1, 1, 3),
+                new Rating(2, 1, 2, 2),
+                new Rating(3, 2, 3, 5),
+                new Rating(4, 2, 1, 4),
+                new Rating(5, 3, 2, 2),
+                new Rating(6, 3, 3, 3)
+                );
+
+            // Singularize table names
             modelBuilder.Entity<Publisher>()
                 .ToTable("Publisher")
-                .HasData(new Publisher
-                {
-                    Id = 1,
-                    Name = "IT-publishers",
-                    Country = "UK"
-                },
+                .HasData(
+                 new Publisher
+                 {
+                     Id = 1,
+                     Name = "IT-publishers",
+                     Country = "UK"
+                 },
                 new Publisher
                 {
                     Id = 2,
                     Name = "FoodBooks",
                     Country = "Sweden"
-                });
-
+                }
+                );
             modelBuilder.Entity<Author>()
                 .ToTable("Author")
-                .HasData(new Author
+                .HasData(
+                new Author
                 {
                     Id = 1,
                     FirstName = "James",
@@ -53,7 +75,8 @@ namespace BookService.WebAPI.Data
             // using ANONYMOUS CLASS to construct Books in Db (AuthorId and PublisherId are no real properties 
             modelBuilder.Entity<Book>()
                 .ToTable("Book")
-                .HasData(new
+                .HasData(
+                new
                 {
                     Id = 1,
                     ISBN = "123456789",
@@ -62,8 +85,8 @@ namespace BookService.WebAPI.Data
                     FileName = "book1.jpg",
                     AuthorId = 1,
                     PublisherId = 1,
-                    Price = 123.23M,
-                    Year = "2012"
+                    Price = 24.99M,
+                    Year = "2019"
                 },
                 new
                 {
@@ -74,8 +97,8 @@ namespace BookService.WebAPI.Data
                     FileName = "book2.jpg",
                     AuthorId = 2,
                     PublisherId = 1,
-                    Price = 123.23M,
-                    Year = "2012"
+                    Price = 20.99M,
+                    Year = "2017"
                 },
                 new
                 {
@@ -86,8 +109,8 @@ namespace BookService.WebAPI.Data
                     FileName = "book3.jpg",
                     AuthorId = 1,
                     PublisherId = 1,
-                    Price = 123.23M,
-                    Year = "2012"
+                    Price = 24.00M,
+                    Year = "2019"
                 },
                 new
                 {
@@ -98,8 +121,8 @@ namespace BookService.WebAPI.Data
                     FileName = "book1.jpg",
                     AuthorId = 2,
                     PublisherId = 1,
-                    Price = 123.23M,
-                    Year = "2012"
+                    Price = 13.99M,
+                    Year = "2013"
                 },
                 new
                 {
@@ -110,9 +133,10 @@ namespace BookService.WebAPI.Data
                     FileName = "book2.jpg",
                     AuthorId = 2,
                     PublisherId = 1,
-                    Price = 123.23M,
-                    Year = "2012"
-                }, new
+                    Price = 34.99M,
+                    Year = "2010"
+                },
+                new
                 {
                     Id = 6,
                     ISBN = "789456258",
@@ -121,9 +145,10 @@ namespace BookService.WebAPI.Data
                     FileName = "book3.jpg",
                     AuthorId = 3,
                     PublisherId = 2,
-                    Price = 123.23M,
+                    Price = 22.99M,
                     Year = "2012"
-                }, new
+                },
+                new
                 {
                     Id = 7,
                     ISBN = "94521546",
@@ -132,8 +157,8 @@ namespace BookService.WebAPI.Data
                     FileName = "book3.jpg",
                     AuthorId = 3,
                     PublisherId = 2,
-                    Price = 123.23M,
-                    Year = "2012"
+                    Price = 27.99M,
+                    Year = "2017"
                 });
 
             modelBuilder.Entity<Publisher>()
@@ -155,5 +180,7 @@ namespace BookService.WebAPI.Data
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<Reader> Readers { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
     }
 }
