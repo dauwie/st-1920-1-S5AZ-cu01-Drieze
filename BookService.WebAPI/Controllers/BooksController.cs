@@ -26,7 +26,7 @@ namespace BookService.WebAPI.Controllers
         [HttpGet]
         public IActionResult GetBooks()
         {
-            return Ok(repository.List());
+            return Ok(repository.ListAll());
         }
 
         // GET: api/Books/Basic 
@@ -55,10 +55,12 @@ namespace BookService.WebAPI.Controllers
 
         [HttpGet]
         [Route("ImageById/{id}")]
-        public IActionResult ImageById(int id)
+        public async Task<IActionResult> ImageById(int id)
         {
-            var filename = repository.GetById(id).FileName;
-            var image = Path.Combine(_hostingEnvironment.WebRootPath, "images", filename);
+            //var filename = repository.GetById(id).Result.FileName;
+            var book  =  await repository.GetById(id);
+            
+            var image = Path.Combine(_hostingEnvironment.WebRootPath, "images", book.FileName);
             return PhysicalFile(image, "image/jpeg");
         }
     }
