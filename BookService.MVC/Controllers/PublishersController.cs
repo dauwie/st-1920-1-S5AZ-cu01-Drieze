@@ -23,5 +23,46 @@ namespace BookService.MVC.Controllers
             string publisherUri = $"{baseUri}/{id}";
             return View(WebApiHelper.GetApiResult<Publisher>(publisherUri));
         }
+        public IActionResult Edit(int id)
+        {
+            string uri = $"{baseUri}/{id}";
+            ViewBag.Mode = "Edit";
+            return View("Detail", WebApiHelper.GetApiResult<Publisher>(uri));
+        }
+
+        public IActionResult Insert()
+        {
+            ViewBag.Mode = "Edit";
+            return View("Detail", new Publisher());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(Publisher publisher)
+        {
+            if (publisher.Id != 0)
+            {
+                // update
+                string uri = $"{baseUri}/{publisher.Id}";
+                publisher = await WebApiHelper.PutCallApi<Publisher, Publisher>(uri, publisher);
+            }
+            else
+            {
+                // insert
+                string uri = $"{baseUri}";
+                publisher = await WebApiHelper.PostCallApi<Publisher, Publisher>(uri, publisher);
+            }
+
+            ViewBag.Mode = "Detail";
+            return View("Detail", publisher);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            string uri = $"{baseUri}/{id}";
+            Publisher publisher = await WebApiHelper.DeleteCallApi<Publisher>(uri);
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

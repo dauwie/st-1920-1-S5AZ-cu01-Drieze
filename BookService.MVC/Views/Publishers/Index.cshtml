@@ -1,17 +1,18 @@
-﻿@model List<BookService.Lib.DTO.PublisherBasic>
+﻿@using BookService.Lib.DTO
+@model List<PublisherBasic>
 
 <h1>Publishers</h1>
 
 <div class="row">
     <div class="col-md-4">
         <ul class="list-group">
-            @foreach (var publisher in Model)
+            @foreach (PublisherBasic publisherBasic in Model)
             {
                 <li class="list-group-item">
-                    <a asp-area="" asp-controller="Publishers" asp-action="Detail" asp-route-id="@publisher.Id">@publisher.Name</a>
+                    <a asp-controller="Publishers" asp-action="Detail" asp-route-id="@publisherBasic.Id">@publisherBasic.Name</a>
                 </li>
             }
         </ul>
-        @*<a class="btn btn-warning" asp-area="" asp-controller="Publishers" asp-action="Insert">Insert</a>*@
+        <a class="btn btn-warning" asp-action="Insert">Insert</a>
     </div>
 </div>

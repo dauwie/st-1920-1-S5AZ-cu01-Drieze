@@ -1,19 +1,51 @@
-﻿@model BookService.Lib.Models.Publisher
+﻿@using BookService.Lib.Models
+@model Publisher
 
 <h1>Publisherdetails</h1>
 
-
 <div class="panel panel-default">
     <div class="panel-body">
-        <div class="panel-body">
-            <ul>
-                <li>@Model.Id</li>
-                <li>@Model.Name</li>
-                <li>@Model.Country</li>
-            </ul>
-            @*<a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>*@
-        </div>
+        @if (ViewBag.Mode == "Detail")
+        {
+            <div class="panel-body">
+                <ul>
+                    <li>@Model.Id</li>
+                    <li>@Model.Name</li>
+                    <li>@Model.Country</li>
+                </ul>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+            </div>
+        }
+
+        @if (ViewBag.Mode == "Edit")
+        {
+            <form asp-action="Save" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="Id" class="col-sm-2 control-label">Id</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Id" class="form-control" readonly="readonly">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Name" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Name" class="col-sm-2 control-label">Country</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Country" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        }
     </div>
-    <div class="panel-footer"><a asp-area="" asp-controller="Publishers" asp-action="Index" class="btn btn-primary">Back to list</a></div>
+    <div class="panel-footer"><a asp-controller="Publishers" asp-action="Index" class="btn btn-primary">Back to list</a></div>
 </div>
