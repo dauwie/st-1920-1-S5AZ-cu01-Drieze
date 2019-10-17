@@ -34,14 +34,6 @@ namespace BookService.WebAPI.Controllers
             return Ok(await repository.ListBasic());
         }
 
-
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<IActionResult> GetBookDetail(int id)
-        {
-            return Ok(await repository.GetById(id));
-        }
-
         [HttpGet]
         [Route("ImageByName/{filename}")]
         public IActionResult ImageByFileName(string filename)

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BookService.WebAPI.Data;
 using BookService.WebAPI.Models;
+using BookService.WebAPI.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookService.WebAPI.Repositories
