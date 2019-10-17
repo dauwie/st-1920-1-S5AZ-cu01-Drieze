@@ -1,4 +1,4 @@
-﻿namespace BookService.WebAPI.DTO
+﻿namespace BookService.Lib.DTO
 {
     public class BookStatistics
     {

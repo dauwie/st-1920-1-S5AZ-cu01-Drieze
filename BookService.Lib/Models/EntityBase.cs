@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookService.WebAPI.Models
+namespace BookService.Lib.Models
 {
     public class EntityBase
     {

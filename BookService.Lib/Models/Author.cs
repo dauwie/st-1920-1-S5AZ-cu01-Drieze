@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BookService.WebAPI.Models
+namespace BookService.Lib.Models
 {
     public class Author : EntityBase
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookService.WebAPI.DTO
+namespace BookService.Lib.DTO
 {
     public class AuthorBasic
     {

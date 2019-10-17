@@ -1,4 +1,4 @@
-﻿using BookService.WebAPI.Models;
+﻿using BookService.Lib.Models;
 using BookService.WebAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BookService.WebAPI.Data;
-using BookService.WebAPI.Models;
+using BookService.Lib.Models;
 using BookService.WebAPI.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 

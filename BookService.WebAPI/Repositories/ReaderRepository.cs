@@ -1,5 +1,5 @@
 ﻿using BookService.WebAPI.Data;
-using BookService.WebAPI.Models;
+using BookService.Lib.Models;
 using BookService.WebAPI.Repositories.Base;
 
 namespace BookService.WebAPI.Repositories

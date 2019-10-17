@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BookService.WebAPI.Data;
-using BookService.WebAPI.Models;
+using BookService.Lib.Models;
 
 namespace BookService.WebAPI.Repositories.Base
 {

@@ -1,7 +1,7 @@
-﻿using BookService.WebAPI.Models;
+﻿using BookService.Lib.Models;
 using System.Collections.Generic;
 
-namespace BookService.WebAPI.DTO
+namespace BookService.Lib.DTO
 {
     public class BookBasic
     {

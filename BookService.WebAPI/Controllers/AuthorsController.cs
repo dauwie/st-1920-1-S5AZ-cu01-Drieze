@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BookService.WebAPI.Repositories;
-using BookService.WebAPI.Models;
+using BookService.Lib.Models;
 
 namespace BookService.WebAPI.Controllers
 {

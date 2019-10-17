@@ -1,4 +1,4 @@
-﻿using BookService.WebAPI.Models;
+﻿using BookService.Lib.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BookService.WebAPI.Models
+namespace BookService.Lib.Models
 {
     public class Book : EntityBase
     {
