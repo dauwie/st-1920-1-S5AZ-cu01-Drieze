@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BookService.WebAPI.Models;
-using BookService.WebAPI.Repositories;
+using BookService.WebAPI.Repositories.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookService.WebAPI.Controllers

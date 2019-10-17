@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookService.WebAPI.Data;
 using BookService.WebAPI.Repositories;
+using BookService.WebAPI.Services.AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +39,15 @@ namespace BookService.WebAPI
             services.AddScoped<PublisherRepository>();
             services.AddScoped<ReaderRepository>();
             services.AddScoped<RatingRepository>();
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperProfileConfiguration());
+            });
+
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace BookService.WebAPI.Repositories
+namespace BookService.WebAPI.Repositories.Base
 {
     public class Repository<T> : IRepository<T> where T : EntityBase
     {
