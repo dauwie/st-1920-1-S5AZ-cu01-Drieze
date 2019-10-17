@@ -12,5 +12,13 @@ namespace BookService.WebAPI.Controllers
         public PublishersController(PublisherRepository publisherRepository) : base(publisherRepository)
         {
         }
+
+        // GET: api/Publishers/Basic 
+        [HttpGet]
+        [Route("Basic")]
+        public async Task<IActionResult> GetPublishersBasic()
+        {
+            return Ok(await repository.ListBasic());
+        }
     }
 }

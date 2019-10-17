@@ -78,5 +78,13 @@ namespace BookService.WebAPI.Controllers
 
             return Ok(new { count = 1, formFile.Length });
         }
+
+
+        [HttpGet]
+        [Route("Statistics")]
+        public async Task<IActionResult> GetBookStatistics()
+        {
+            return Ok(await repository.ListStatistics());
+        }
     }
 }
