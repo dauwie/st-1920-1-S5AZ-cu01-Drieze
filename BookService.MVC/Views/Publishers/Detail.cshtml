@@ -1,0 +1,19 @@
+﻿@model BookService.Lib.Models.Publisher
+
+<h1>Publisherdetails</h1>
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="panel-body">
+            <ul>
+                <li>@Model.Id</li>
+                <li>@Model.Name</li>
+                <li>@Model.Country</li>
+            </ul>
+            @*<a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>*@
+        </div>
+    </div>
+    <div class="panel-footer"><a asp-area="" asp-controller="Publishers" asp-action="Index" class="btn btn-primary">Back to list</a></div>
+</div>

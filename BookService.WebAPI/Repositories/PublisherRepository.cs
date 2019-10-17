@@ -7,6 +7,7 @@ using BookService.WebAPI.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace BookService.WebAPI.Repositories
 {
@@ -18,7 +19,9 @@ namespace BookService.WebAPI.Repositories
         public async Task<List<PublisherBasic>> ListBasic()
         {
             return await db.Publishers
-            .ProjectTo<PublisherBasic>(mapper.ConfigurationProvider).ToListAsync();
+            .ProjectTo<PublisherBasic>(mapper.ConfigurationProvider)
+            .OrderBy(p=>p.Name)
+            .ToListAsync();
         }
     }
 }
