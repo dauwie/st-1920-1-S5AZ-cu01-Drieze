@@ -21,7 +21,9 @@ namespace BookService.WebAPI.Repositories
         {
             // return a list of BookBasic DTO-items (Id and Title only) using AutoMapper
             return await db.Books
-            .ProjectTo<BookBasic>(mapper.ConfigurationProvider).ToListAsync();
+            .ProjectTo<BookBasic>(mapper.ConfigurationProvider)
+            .OrderBy(b => b.Title)
+            .ToListAsync();
 
         }
 
