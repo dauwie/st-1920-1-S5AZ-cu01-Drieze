@@ -15,7 +15,10 @@ namespace BookService.WebAPI.Repositories
 
         public async Task<List<Rating>> GetAllInclusive()
         {
-            return await GetAll().Include(r => r.Reader).Include(r => r.Book).ToListAsync();
+            return await GetAll()
+                .Include(r => r.Reader)
+                .Include(r => r.Book)
+                .ToListAsync();
         }
     }
 }
