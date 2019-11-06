@@ -1,0 +1,60 @@
+﻿@using BookService.Lib.DTO
+@model List<AuthorBasic>
+
+<h1>Authors</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <ul class="list-group">
+            @foreach (AuthorBasic authorBasic in Model)
+            {
+                <li class="list-group-item">
+                    <b><a href="#" data-id="@authorBasic.Id" class="author">@authorBasic.Name</a></b>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Authordetail</h4>
+            </div>
+            <div class="modal-body">
+                Details
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            var url = 'https://localhost:5001/api/authors';
+
+            var infoModal = $('#myModal');
+            $('.author').on('click', function () {
+                fetch(url + '/' + $(this).data('id'))
+                    .then(response => response.json())
+                    .then(function (author) { showAuthorDetails(author); });
+            });
+
+            showAuthorDetails = function (author) {
+                var htmlData = '<b>First Name:</b> ' + author.firstName + '<br \>';
+                htmlData += '<b>Last Name:</b> ' + author.lastName + '<br \>';
+                htmlData += '<b>Id:</b> ' + author.id + '<hr>';
+                htmlData += '<b>Born: </b>' + author.birthDate;
+                infoModal.find('.modal-body').html(htmlData);
+                infoModal.modal('show');
+            };
+        });
+    </script>
+}

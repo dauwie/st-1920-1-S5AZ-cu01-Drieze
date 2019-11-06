@@ -40,6 +40,8 @@ namespace BookService.WebAPI
             services.AddScoped<ReaderRepository>();
             services.AddScoped<RatingRepository>();
 
+            services.AddCors();
+
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapperProfileConfiguration());
@@ -64,6 +66,13 @@ namespace BookService.WebAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(builder =>
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+
             app.UseMvc();
         }
     }
