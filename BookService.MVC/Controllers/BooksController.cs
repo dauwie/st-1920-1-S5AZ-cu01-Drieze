@@ -32,5 +32,9 @@ namespace BookService.MVC.Controllers
                 BookSummary = new HttpClient().GetStringAsync(ipsumUri).Result //pure string response, no json
             });
         }
+        public ActionResult IndexVue()
+        {
+            return View();
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace BookService.WebAPI.Controllers
 
         // POST: api/T
         [HttpPost]
-        public async Task<IActionResult> PostPublisher([FromBody] T entity)
+        public async virtual Task<IActionResult> Post([FromBody] T entity)
         {
             if (!ModelState.IsValid)
             {

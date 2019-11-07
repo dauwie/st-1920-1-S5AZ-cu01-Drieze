@@ -1,0 +1,271 @@
+﻿@{
+    ViewBag.Title = "Books with Vue.js";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<article id="app" class="row">
+    <header class="col-md-4">
+        <h3>{{ message }}</h3> @*Vue mustache*@
+        <nav>
+            <ul class="list-group">
+                <li class="list-group-item" v-for="book in books" v-on:click="fetchBookDetails(book)" :class="getBookClass(book)" style="cursor:pointer">
+                    <span class="bookTitle">{{ book.title }}</span>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div v-if="currentBook" class="col-md-8">
+        <h3>Details</h3>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="currentBook.title" :readonly="isReadOnly">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Author</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="currentBook.author.lastName +' ' +currentBook.author.firstName"
+                           :readonly="isReadOnly" v-if="isReadOnly">
+                    <select v-model="currentBook.author" class="form-control" v-if="!isReadOnly">
+                        <option v-for="author in authors" :value="author">
+                            {{author.lastName }} {{ author.firstName }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Publisher</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control"
+                           :value="currentBook.publisher.name" :readonly="isReadOnly" v-if="isReadOnly">
+                    <select v-model="currentBook.publisher" class="formcontrol" v-if="!isReadOnly">
+                        <option v-for="publisher in publishers" :value="publisher">
+                            {{ publisher.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Year</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="currentBook.year" :readonly="isReadOnly">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">ISBN</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="currentBook.isbn" :readonly="isReadOnly">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Pages</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="currentBook.numberOfPages" :readonly="isReadOnly">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Price</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="currentBook.price" :readonly="isReadOnly">
+                </div>
+            </div>
+            <button v-on:click="toEditMode(true)" v-if="isReadOnly" class="btn btn-primary">
+                Edit
+            </button>
+            <button v-on:click="toEditMode(false)" v-if="isReadOnly" class="btn btn-warning">
+                New
+            </button>
+            <button v-on:click="deleteBook()" v-if="isReadOnly" class="btn btndanger">Delete</button>
+            <button v-on:click="save" v-if="!isReadOnly" class="btn btnprimary">Save</button>
+            <button v-on:click="cancel" v-if="!isReadOnly" class="btn btndefault">Cancel</button>
+        </div>
+    </div>
+</article>
+
+@section scripts{
+    <script src="~/lib/vue/vue.js"></script>
+    <script>
+
+        var apiURL = 'https://localhost:5001/api/';
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Loading books...',
+                books: null,
+                currentBook: null,
+                authors: null,
+                publishers: null,
+                isReadOnly: true,
+                isEdit: false,
+            },
+            created: function () {
+                var self = this;
+                self.fetchBooks();
+                self.fetchAuthors();
+                self.fetchPublishers();
+            },
+            methods: {
+                fetchBooks: function () {
+                    self = this;
+                    fetch(`${apiURL}Books/Basic`)
+                        .then(res => res.json())
+                        .then(function (books) {
+                            books.forEach(function (book, i) {
+                                book.isActive = false;
+                            });
+                            self.books = books;
+                            self.message = 'Overview';
+                            if (self.books.length > 0) {
+                                self.fetchBookDetails(self.books[0]);
+                            }
+                        })
+                        .catch(err => console.error('Fout: ' + err));
+                },
+                fetchBookDetails: function (book) {
+                    self = this;
+                    if (!self.isReadOnly) return;
+                    fetch(`${apiURL}Books/${book.id}`)
+                        .then(res => res.json())
+                        .then(function (res) {
+                            self.currentBook = res;
+                            self.makeBookActive(book.id);
+                            self.books.forEach(function (book, i) {
+                                book.isActive = false;
+                            })
+                            book.isActive = true;
+                        })
+                        .catch(err => console.error('Fout: ' + err));
+                },
+                makeBookActive: function (bookid) {
+                    self.books.forEach(function (book, i) {
+                        book.isActive = book.id === bookid ? true : false;
+                    });
+                },
+                getBookClass: function (book) {
+                    if (book.isActive) return 'list-group-item active';
+                    return 'list-group-item';
+                },
+                fetchAuthors: function () {
+                    self = this;
+                    fetch(`${apiURL}Authors`)
+                        .then(res => res.json())
+                        .then(function (res) {
+                            self.authors = res;
+                        })
+                        .catch(err => console.error('Fout: ' + err));
+                },
+                fetchPublishers: function () {
+                    self = this;
+                    fetch(`${apiURL}Publishers`)
+                        .then(res => res.json())
+                        .then(function (res) {
+                            self.publishers = res;
+                        })
+                        .catch(err => console.error('Fout: ' + err));
+                },
+                toEditMode: function (isEdit) {
+                    self = this;
+                    self.isReadOnly = false;
+                    self.isEdit = isEdit;
+                    if (!isEdit) {
+                        self.currentBook = {
+                            "title": "", "isbn": "", "year":
+                                0, "price": 0, "numberOfPages": 0, "authorId": 0, "author": {
+                                    "firstName": "",
+                                    "lastName": "", "birthDate": "", "id": 0, "created": ""
+                                }, "publisherId": 0,
+                            "publisher": { "name": "", "": "", "id": 0, "created": "" }, "fileName": "",
+                            "ratings": null, "id": 0, "created": ""
+                        };
+                    }
+                },
+                save: function () {
+                    var self = this;
+                    // de properties authorId en publisherId van het Book zijn  nog leeg
+                    // de vue.js databinding vult enkel de compositeproperties author en publisher
+                    self.currentBook.authorId = self.currentBook.author.id;
+                    self.currentBook.publisherId =
+                        self.currentBook.publisher.id;
+                    // opslaan - ajax configuratie
+                    var ajaxHeaders = new Headers();
+                    ajaxHeaders.append("Content-Type", "application/json");
+                    var ajaxConfig = {
+                        method: 'PUT',
+                        body: JSON.stringify(self.currentBook),
+                        headers: ajaxHeaders
+                    };
+                    if (self.isEdit) {
+                        let myRequest = new
+                            Request(`${apiURL}Books/${self.currentBook.id}`, ajaxConfig);
+                        fetch(myRequest)
+                            .then(res => res.json())
+                            .then(res => {
+                                self.updateBookList(res);
+                            })
+                            .catch(err => console.error('Fout: ' + err));
+                    }
+                    else {
+                        ajaxConfig.method = 'POST';
+                        let myRequest = new Request(`${apiURL}Books/`,
+                            ajaxConfig);
+                        fetch(myRequest)
+                            .then(res => res.json())
+                            .then(res => {
+                                self.addBookToList(res);
+                            })
+                            .catch(err => console.error('Fout: ' + err));
+                    }
+                    self.isEdit = false;
+                    self.isReadOnly = true;
+                },
+                addBookToList: function (book) {
+                    self.currentBook.id = book.id;
+                    self.books.push(book);
+                    self.fetchBookDetails(self.books[self.books.length - 1]);
+                },
+                updateBookList: function (book) {
+                    // het geupdate boek uit de boekenlijst ophalen (dit is eenlijst van BookBasic - elementen)
+                    var updatedBook = self.books.filter(b => b.id === book.id)[0];
+                    // gegevens aanpassen
+                    updatedBook.title = book.title;
+                },
+                cancel: function () {
+                    var self = this;
+                    self.isReadOnly = true;
+                    if (self.isEdit) {
+                        self.fetchBookDetails(self.currentBook);
+                    } else {
+                        self.fetchBookDetails(self.books[0]);
+                    }
+                    self.isEdit = false;
+                },
+                deleteBook: function () {
+                    self = this;
+                    fetch(`${apiURL}Books/${self.currentBook.id}`, {
+                        method:
+                            'DELETE'
+                    })
+                        .then(res => res.json())
+                        .then(function (res) {
+                            // boek verwijderen uit de lijst
+                            self.books.forEach(function (book, i) {
+                                if (book.id === self.currentBook.id) {
+                                    self.books.splice(i, 1);
+                                    return;
+                                }
+                            });
+                            // eerste boek selecteren
+                            if (self.books.length > 0)
+                                self.fetchBookDetails(self.books[0]);
+                        })
+                        .catch(err => console.error('Fout: ' + err));
+                },
+            }
+        });
+    </script>
+}

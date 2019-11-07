@@ -39,7 +39,8 @@ namespace BookService.WebAPI.Controllers
         [Route("Detail/{id}")]
         public async Task<IActionResult> GetBookDetail(int id)
         {
-            return Ok(await repository.GetDetailById(id));
+            //return Ok(await repository.GetDetailById(id));
+            return Ok(await repository.GetById(id));
         }
 
         [HttpGet]
@@ -85,6 +86,14 @@ namespace BookService.WebAPI.Controllers
         public async Task<IActionResult> GetBookStatistics()
         {
             return Ok(await repository.ListStatistics());
+        }
+
+        [HttpPost]
+        public async override Task<IActionResult> Post([FromBody] Book book)
+        {
+            book.Author = null;
+            book.Publisher = null;
+            return await base.Post(book);
         }
     }
 }

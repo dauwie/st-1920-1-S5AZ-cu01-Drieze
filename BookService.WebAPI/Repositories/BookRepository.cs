@@ -53,5 +53,12 @@ namespace BookService.WebAPI.Repositories
                     .ProjectTo<BookStatistics>(mapper.ConfigurationProvider)
                     .ToListAsync();
         }
+        public override async Task<Book> GetById(int id)
+        {
+            return await db.Books
+            .Include(b => b.Author)
+            .Include(b => b.Publisher)
+            .FirstOrDefaultAsync(b => b.Id == id);
+        }
     }
 }
